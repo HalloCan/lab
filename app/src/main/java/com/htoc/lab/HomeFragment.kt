@@ -31,6 +31,7 @@ class HomeFragment : Fragment() {
             when (item.id) {
                 "about" -> findNavController().navigate(R.id.action_home_to_about)
                 "demo" -> findNavController().navigate(R.id.action_home_to_demo)
+                "wiggle" -> findNavController().navigate(R.id.action_home_to_wiggle)
             }
         }
     }
@@ -47,6 +48,12 @@ class HomeFragment : Fragment() {
             R.drawable.ic_demo,
             getString(R.string.card_demo_title),
             getString(R.string.card_demo_desc)
+        ),
+        FeatureItem(
+            "wiggle",
+            R.drawable.ic_vibrate,
+            getString(R.string.card_wiggle_title),
+            getString(R.string.card_wiggle_desc)
         )
     )
 }

@@ -29,4 +29,23 @@
     <string name="card_about_desc">了解这个项目的用途和技术细节</string>
     <string name="card_demo_title">功能示范</string>
     <string name="card_demo_desc">查看功能示范模板，快速开始新测试</string>
+    <string name="card_wiggle_title">晃晃我</string>
+    <string name="card_wiggle_desc">摇晃手机生成随机数</string>
+
+    <!-- Wiggle -->
+    <string name="wiggle_title">晃晃我🫨</string>
+    <string name="wiggle_description">获取设备的运动传感器权限，通过你的摇晃积累足够的随机值，然后输出一个随机数。</string>
+    <string name="wiggle_title_2">📱开始晃动…</string>
+    <string name="wiggle_hint">从设备的晃动积累随机值</string>
+    <string name="wiggle_realtime_data_title">传感器当前返回数值:</string>
+    <string name="wiggle_realtime_data_hint">此处填充实时数据(Hex)</string>
+    <string name="wiggle_realtime_data_option">显示当前缓冲区内数值</string>
+    <!-- 不显示数值的话就用随机的*、-、+、/代替 -->
+    <string name="wiggle_result_title">成功!随机值为:</string>
+    <string name="wiggle_result_hint">此处填充随机值</string>
+    <string name="wiggle_reset_button">重置</string>
+    <string name="wiggle_start_button">开始收集</string>
+    <string name="wiggle_collecting_button">收集中…</string>
+    <string name="wiggle_data_size_label">数据收集量: %d 字节</string>
+    <string name="wiggle_threshold_label">晃动灵敏度: %d</string>
 </resources>

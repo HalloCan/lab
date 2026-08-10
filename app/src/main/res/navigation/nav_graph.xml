@@ -26,6 +26,14 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_home_to_wiggle"
+            app:destination="@id/wiggleFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -39,5 +47,11 @@
         android:name="com.htoc.lab.DemoFragment"
         android:label="@string/demo_title"
         tools:layout="@layout/fragment_demo" />
+
+    <fragment
+        android:id="@+id/wiggleFragment"
+        android:name="com.htoc.lab.WiggleFragment"
+        android:label="@string/wiggle_title"
+        tools:layout="@layout/fragment_wiggle" />
 
 </navigation>
