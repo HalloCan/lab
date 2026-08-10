@@ -111,7 +111,7 @@
                         android:valueFrom="1"
                         android:valueTo="50"
                         android:stepSize="1"
-                        android:value="20" />
+                        android:value="10" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_start"

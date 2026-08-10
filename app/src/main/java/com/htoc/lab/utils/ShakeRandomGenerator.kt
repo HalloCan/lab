@@ -33,7 +33,7 @@ import kotlin.math.sqrt
 class ShakeRandomGenerator(
     context: Context,
     private val targetBytes: Int = 1024,
-    private var shakeThreshold: Float = 20f,
+    private var shakeThreshold: Float = 10f,
     private val onProgress: (percent: Int) -> Unit = {},
     private val onComplete: (hexResult: String) -> Unit = {},
     private val onSensorData: ((x: Float, y: Float, z: Float) -> Unit)? = null

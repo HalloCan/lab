@@ -46,6 +46,7 @@
     <string name="wiggle_reset_button">重置</string>
     <string name="wiggle_start_button">开始收集</string>
     <string name="wiggle_collecting_button">收集中…</string>
+    <string name="wiggle_copied">已复制到剪贴板</string>
     <string name="wiggle_data_size_label">数据收集量: %d 字节</string>
     <string name="wiggle_threshold_label">晃动灵敏度: %d</string>
 </resources>

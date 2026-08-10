@@ -1,6 +1,9 @@
 package com.htoc.lab
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.slider.Slider
+import com.google.android.material.snackbar.Snackbar
 import com.htoc.lab.utils.ShakeRandomGenerator
 import java.nio.ByteBuffer
 
@@ -54,6 +58,14 @@ class WiggleFragment : Fragment() {
         sliderThresholdLabel = view.findViewById(R.id.slider_threshold_label)
 
         realtimeRight.setText(" ")
+
+        resultText.setOnClickListener {
+            val text = resultText.text
+            if (text.isNullOrBlank()) return@setOnClickListener
+            val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipboard.setPrimaryClip(ClipData.newPlainText("random_hex", text))
+            Snackbar.make(view, getString(R.string.wiggle_copied), Snackbar.LENGTH_SHORT).show()
+        }
 
         updateDataSizeLabel(sliderDataSize.value.toInt())
         updateThresholdLabel(sliderThreshold.value.toInt())
