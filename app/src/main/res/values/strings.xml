@@ -1,3 +1,32 @@
 <resources>
-    <string name="app_name">lab</string>
+    <string name="app_name">Idea Forge</string>
+
+    <!-- Home -->
+    <string name="home_title">Idea Forge</string>
+    <string name="home_subtitle">探索 &amp; 测试你的每一个想法</string>
+
+    <!-- Navigation -->
+    <string name="nav_about">关于</string>
+    <string name="nav_demo">功能示范</string>
+
+    <!-- About Page -->
+    <string name="about_title">关于</string>
+    <string name="about_project_name">Idea Forge</string>
+    <string name="about_description">这是一个用于测试各种想法和点子的实验项目。每个功能模块独立存在，方便快速验证新概念。</string>
+    <string name="about_tech_stack">技术栈</string>
+    <string name="about_tech_details">Kotlin · Material Design 3 · Navigation Component · XML Layouts</string>
+    <string name="about_version">版本</string>
+    <string name="about_version_number">1.0</string>
+
+    <!-- Demo Page -->
+    <string name="demo_title">功能示范</string>
+    <string name="demo_description">这是一个功能示范模板页面。你可以复制此页面作为新功能测试的起点。</string>
+    <string name="demo_action_button">执行操作</string>
+    <string name="demo_snackbar_text">操作已执行</string>
+
+    <!-- Card Items -->
+    <string name="card_about_title">关于项目</string>
+    <string name="card_about_desc">了解这个项目的用途和技术细节</string>
+    <string name="card_demo_title">功能示范</string>
+    <string name="card_demo_desc">查看功能示范模板，快速开始新测试</string>
 </resources>
