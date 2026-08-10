@@ -82,26 +82,10 @@
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
                     <TextView
-                        android:id="@+id/slider_data_size_label"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:textSize="14sp" />
-
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/slider_data_size"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:valueFrom="256"
-                        android:valueTo="4096"
-                        android:stepSize="256"
-                        android:value="1024" />
-
-                    <TextView
                         android:id="@+id/slider_threshold_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:textSize="14sp" />
 
                     <com.google.android.material.slider.Slider
@@ -112,6 +96,22 @@
                         android:valueTo="50"
                         android:stepSize="1"
                         android:value="3" />
+
+                    <TextView
+                        android:id="@+id/slider_quality_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="14sp" />
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/slider_quality"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:valueFrom="60"
+                        android:valueTo="95"
+                        android:stepSize="5"
+                        android:value="85" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_start"

@@ -29,10 +29,10 @@ class WiggleFragment : Fragment() {
     private lateinit var checkBox: CheckBox
     private lateinit var btnStart: MaterialButton
     private lateinit var btnReset: MaterialButton
-    private lateinit var sliderDataSize: Slider
-    private lateinit var sliderDataSizeLabel: TextView
     private lateinit var sliderThreshold: Slider
     private lateinit var sliderThresholdLabel: TextView
+    private lateinit var sliderQuality: Slider
+    private lateinit var sliderQualityLabel: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,10 +52,10 @@ class WiggleFragment : Fragment() {
         checkBox = view.findViewById(R.id.check_box)
         btnStart = view.findViewById(R.id.btn_start)
         btnReset = view.findViewById(R.id.btn_reset)
-        sliderDataSize = view.findViewById(R.id.slider_data_size)
-        sliderDataSizeLabel = view.findViewById(R.id.slider_data_size_label)
         sliderThreshold = view.findViewById(R.id.slider_threshold)
         sliderThresholdLabel = view.findViewById(R.id.slider_threshold_label)
+        sliderQuality = view.findViewById(R.id.slider_quality)
+        sliderQualityLabel = view.findViewById(R.id.slider_quality_label)
 
         realtimeRight.setText(" ")
 
@@ -67,42 +67,18 @@ class WiggleFragment : Fragment() {
             Snackbar.make(view, getString(R.string.wiggle_copied), Snackbar.LENGTH_SHORT).show()
         }
 
-        updateDataSizeLabel(sliderDataSize.value.toInt())
         updateThresholdLabel(sliderThreshold.value.toInt())
-
-        sliderDataSize.addOnChangeListener { _, value, _ ->
-            updateDataSizeLabel(value.toInt())
-        }
+        updateQualityLabel(sliderQuality.value.toInt())
 
         sliderThreshold.addOnChangeListener { _, value, _ ->
-            generator.updateThreshold(value)
             updateThresholdLabel(value.toInt())
         }
 
-        generator = ShakeRandomGenerator(
-            context = requireContext(),
-            targetBytes = sliderDataSize.value.toInt(),
-            shakeThreshold = sliderThreshold.value,
-            onProgress = { percent ->
-                progressBar.setProgressCompat(percent, true)
-            },
-            onComplete = { hex ->
-                resultText.text = hex
-                resultTitle.visibility = View.VISIBLE
-                resultText.visibility = View.VISIBLE
-                progressBar.setProgressCompat(100, true)
-            },
-            onSensorData = { dx, dy, dz, _, _, _ ->
-                if (checkBox.isChecked) {
-                    val buf = ByteBuffer.allocate(12)
-                    buf.putInt(dx).putInt(dy).putInt(dz)
-                    realtimeRight.text = buf.array().take(8).joinToString("") { "%02X".format(it) }
-                } else {
-                    val ops = charArrayOf('+', '-', '*', '/')
-                    realtimeRight.text = (1..16).map { ops.random() }.joinToString("")
-                }
-            }
-        )
+        sliderQuality.addOnChangeListener { _, value, _ ->
+            updateQualityLabel(value.toInt())
+        }
+
+        generator = createGenerator()
 
         btnStart.setOnClickListener { startCollecting() }
         btnReset.setOnClickListener { reset() }
@@ -127,14 +103,13 @@ class WiggleFragment : Fragment() {
         generator.release()
     }
 
-    private fun startCollecting() {
-        // 用当前滑块值重建 generator
-        generator = ShakeRandomGenerator(
+    private fun createGenerator(): ShakeRandomGenerator {
+        return ShakeRandomGenerator(
             context = requireContext(),
-            targetBytes = sliderDataSize.value.toInt(),
             shakeThreshold = sliderThreshold.value,
-            onProgress = { percent ->
-                progressBar.setProgressCompat(percent, true)
+            qualityThreshold = sliderQuality.value.toInt(),
+            onProgress = { score ->
+                progressBar.setProgressCompat(score, true)
             },
             onComplete = { hex ->
                 resultText.text = hex
@@ -153,12 +128,16 @@ class WiggleFragment : Fragment() {
                 }
             }
         )
+    }
+
+    private fun startCollecting() {
+        generator = createGenerator()
         generator.start()
 
         btnStart.isEnabled = false
         btnStart.text = getString(R.string.wiggle_collecting_button)
-        sliderDataSize.isEnabled = false
         sliderThreshold.isEnabled = false
+        sliderQuality.isEnabled = false
     }
 
     private fun reset() {
@@ -168,18 +147,18 @@ class WiggleFragment : Fragment() {
         realtimeRight.setText(" ")
         resultTitle.visibility = View.GONE
         resultText.visibility = View.GONE
-        sliderDataSize.isEnabled = true
         sliderThreshold.isEnabled = true
+        sliderQuality.isEnabled = true
         btnStart.isEnabled = true
         btnStart.text = getString(R.string.wiggle_start_button)
     }
 
-    @SuppressLint("StringFormatInvalid")
-    private fun updateDataSizeLabel(value: Int) {
-        sliderDataSizeLabel.text = getString(R.string.wiggle_data_size_label, value)
-    }
-
     private fun updateThresholdLabel(value: Int) {
         sliderThresholdLabel.text = getString(R.string.wiggle_threshold_label, value)
+    }
+
+    @SuppressLint("StringFormatInvalid")
+    private fun updateQualityLabel(value: Int) {
+        sliderQualityLabel.text = getString(R.string.wiggle_quality_label, value)
     }
 }
