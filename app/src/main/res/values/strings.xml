@@ -31,6 +31,8 @@
     <string name="card_demo_desc">查看功能示范模板，快速开始新测试</string>
     <string name="card_wiggle_title">晃晃我</string>
     <string name="card_wiggle_desc">摇晃手机生成随机数</string>
+    <string name="card_converter_title">Emoji 转换</string>
+    <string name="card_converter_desc">Hex 与 Emoji 互转工具</string>
 
     <!-- Wiggle -->
     <string name="wiggle_title">晃晃我🫨</string>
@@ -42,6 +44,9 @@
     <string name="wiggle_realtime_data_option">显示当前缓冲区内数值</string>
     <!-- 不显示数值的话就用随机的*、-、+、/代替 -->
     <string name="wiggle_result_title">成功!随机值为:</string>
+    <string name="wiggle_emoji_title">你的随机 Emoji</string>
+    <string name="wiggle_dialog_title">随机值已生成</string>
+    <string name="wiggle_dialog_ok">好的</string>
     <string name="wiggle_result_hint">此处填充随机值</string>
     <string name="wiggle_reset_button">重置</string>
     <string name="wiggle_start_button">开始收集</string>
@@ -49,4 +54,11 @@
     <string name="wiggle_copied">已复制到剪贴板</string>
     <string name="wiggle_threshold_label">晃动灵敏度: %d</string>
     <string name="wiggle_quality_label">质量阈值: %d</string>
+
+    <!-- Converter -->
+    <string name="converter_title">Hex ↔ Emoji 转换器</string>
+    <string name="converter_hex_hint">输入 Hex 值</string>
+    <string name="converter_emoji_hint">输入 Emoji</string>
+    <string name="converter_hex_preview">Hex 输出</string>
+    <string name="converter_emoji_preview">Emoji 输出</string>
 </resources>

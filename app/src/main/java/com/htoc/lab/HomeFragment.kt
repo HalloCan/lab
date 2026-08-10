@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
                 "about" -> findNavController().navigate(R.id.action_home_to_about)
                 "demo" -> findNavController().navigate(R.id.action_home_to_demo)
                 "wiggle" -> findNavController().navigate(R.id.action_home_to_wiggle)
+                "converter" -> findNavController().navigate(R.id.action_home_to_converter)
             }
         }
     }
@@ -54,6 +55,12 @@ class HomeFragment : Fragment() {
             R.drawable.ic_vibrate,
             getString(R.string.card_wiggle_title),
             getString(R.string.card_wiggle_desc)
+        ),
+        FeatureItem(
+            "converter",
+            R.drawable.ic_swap,
+            getString(R.string.card_converter_title),
+            getString(R.string.card_converter_desc)
         )
     )
 }

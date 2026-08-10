@@ -12,6 +12,8 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.slider.Slider
 import com.google.android.material.snackbar.Snackbar
@@ -25,7 +27,7 @@ class WiggleFragment : Fragment() {
 
     private lateinit var progressBar: LinearProgressIndicator
     private lateinit var realtimeRight: TextView
-    private lateinit var resultTitle: TextView
+    private lateinit var resultCard: MaterialCardView
     private lateinit var resultText: TextView
     private lateinit var emojiResult: TextView
     private lateinit var checkBox: CheckBox
@@ -49,7 +51,7 @@ class WiggleFragment : Fragment() {
 
         progressBar = view.findViewById(R.id.progress_bar)
         realtimeRight = view.findViewById(R.id.text_view_right)
-        resultTitle = view.findViewById(R.id.result_title)
+        resultCard = view.findViewById(R.id.result_card)
         resultText = view.findViewById(R.id.edit_result)
         emojiResult = view.findViewById(R.id.emoji_result)
         checkBox = view.findViewById(R.id.check_box)
@@ -123,12 +125,12 @@ class WiggleFragment : Fragment() {
                 progressBar.setProgressCompat(score, true)
             },
             onComplete = { hex ->
+                val emoji = EmojiMapper.mapFromHex(hex)
                 resultText.text = hex
-                emojiResult.text = EmojiMapper.mapFromHex(hex)
-                resultTitle.visibility = View.VISIBLE
-                resultText.visibility = View.VISIBLE
-                emojiResult.visibility = View.VISIBLE
+                emojiResult.text = emoji
+                resultCard.visibility = View.VISIBLE
                 progressBar.setProgressCompat(100, true)
+                showResultDialog(hex, emoji)
             },
             onSensorData = { dx, dy, dz, _, _, _ ->
                 if (checkBox.isChecked) {
@@ -158,13 +160,65 @@ class WiggleFragment : Fragment() {
 
         progressBar.setProgressCompat(0, false)
         realtimeRight.setText(" ")
-        resultTitle.visibility = View.GONE
-        resultText.visibility = View.GONE
-        emojiResult.visibility = View.GONE
+        resultCard.visibility = View.GONE
         sliderThreshold.isEnabled = true
         sliderQuality.isEnabled = true
         btnStart.isEnabled = true
         btnStart.text = getString(R.string.wiggle_start_button)
+    }
+
+    private fun showResultDialog(hex: String, emoji: String) {
+        val layout = android.widget.LinearLayout(requireContext()).apply {
+            orientation = android.widget.LinearLayout.VERTICAL
+            setPadding(64, 32, 64, 16)
+        }
+
+        val hexLabel = TextView(requireContext()).apply {
+            text = getString(R.string.wiggle_result_title)
+            setTextAppearance(com.google.android.material.R.attr.textAppearanceLabelLarge)
+        }
+
+        val hexView = TextView(requireContext()).apply {
+            text = hex
+            setTextAppearance(com.google.android.material.R.attr.textAppearanceTitleMedium)
+            setTextColor(requireContext().getColor(com.google.android.material.R.color.m3_sys_color_dynamic_light_primary))
+            typeface = android.graphics.Typeface.MONOSPACE
+            setPadding(0, 0, 0, 32)
+            setOnClickListener {
+                copyToClipboard("random_hex", hex)
+            }
+        }
+
+        val emojiLabel = TextView(requireContext()).apply {
+            text = getString(R.string.wiggle_emoji_title)
+            setTextAppearance(com.google.android.material.R.attr.textAppearanceLabelLarge)
+        }
+
+        val emojiView = TextView(requireContext()).apply {
+            text = emoji
+            textSize = 24f
+            setPadding(0, 8, 0, 0)
+            setOnClickListener {
+                copyToClipboard("random_emoji", emoji)
+            }
+        }
+
+        layout.addView(hexLabel)
+        layout.addView(hexView)
+        layout.addView(emojiLabel)
+        layout.addView(emojiView)
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.wiggle_dialog_title)
+            .setView(layout)
+            .setPositiveButton(R.string.wiggle_dialog_ok, null)
+            .show()
+    }
+
+    private fun copyToClipboard(label: String, text: String) {
+        val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        clipboard.setPrimaryClip(ClipData.newPlainText(label, text))
+        Snackbar.make(requireView(), getString(R.string.wiggle_copied), Snackbar.LENGTH_SHORT).show()
     }
 
     private fun updateThresholdLabel(value: Int) {

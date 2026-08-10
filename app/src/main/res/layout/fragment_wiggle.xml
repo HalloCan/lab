@@ -171,26 +171,55 @@
                         android:progress="0"
                         app:trackCornerRadius="4dp" />
 
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/result_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
                     <TextView
-                        android:id="@+id/result_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
                         android:text="@string/wiggle_result_title"
-                        android:textAppearance="?attr/textAppearanceBodyMediumEmphasized"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:visibility="gone" />
+                        android:textAppearance="?attr/textAppearanceTitleLarge"
+                        android:textColor="?attr/colorOnSurface" />
 
                     <TextView
                         android:id="@+id/edit_result"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="12dp"
                         android:gravity="center"
-                        android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
                         android:textColor="?attr/colorPrimary"
-                        android:visibility="gone" />
+                        android:fontFamily="monospace" />
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wiggle_emoji_title"
+                        android:textAppearance="?attr/textAppearanceTitleLarge"
+                        android:textColor="?attr/colorOnSurface" />
 
                     <TextView
                         android:id="@+id/emoji_result"
@@ -198,9 +227,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:gravity="center"
-                        android:lineSpacingMultiplier="1.2"
-                        android:textAppearance="?attr/textAppearanceHeadlineMedium"
-                        android:visibility="gone" />
+                        android:lineSpacingMultiplier="1.4"
+                        android:textAppearance="?attr/textAppearanceHeadlineMedium" />
 
                 </LinearLayout>
 

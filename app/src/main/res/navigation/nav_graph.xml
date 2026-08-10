@@ -34,6 +34,14 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_home_to_converter"
+            app:destination="@id/converterFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -53,5 +61,11 @@
         android:name="com.htoc.lab.WiggleFragment"
         android:label="@string/wiggle_title"
         tools:layout="@layout/fragment_wiggle" />
+
+    <fragment
+        android:id="@+id/converterFragment"
+        android:name="com.htoc.lab.ConverterFragment"
+        android:label="@string/converter_title"
+        tools:layout="@layout/fragment_converter" />
 
 </navigation>
