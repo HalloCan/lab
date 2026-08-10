@@ -92,12 +92,11 @@ class WiggleFragment : Fragment() {
                 resultText.visibility = View.VISIBLE
                 progressBar.setProgressCompat(100, true)
             },
-            onSensorData = { x, y, z ->
+            onSensorData = { dx, dy, dz, _, _, _ ->
                 if (checkBox.isChecked) {
-                    val bytes = ByteBuffer.allocate(12)
-                        .putFloat(x).putFloat(y).putFloat(z)
-                        .array()
-                    realtimeRight.text = bytes.take(8).joinToString("") { "%02X".format(it) }
+                    val buf = ByteBuffer.allocate(12)
+                    buf.putInt(dx).putInt(dy).putInt(dz)
+                    realtimeRight.text = buf.array().take(8).joinToString("") { "%02X".format(it) }
                 } else {
                     val ops = charArrayOf('+', '-', '*', '/')
                     realtimeRight.text = (1..16).map { ops.random() }.joinToString("")
@@ -143,12 +142,11 @@ class WiggleFragment : Fragment() {
                 resultText.visibility = View.VISIBLE
                 progressBar.setProgressCompat(100, true)
             },
-            onSensorData = { x, y, z ->
+            onSensorData = { dx, dy, dz, _, _, _ ->
                 if (checkBox.isChecked) {
-                    val bytes = ByteBuffer.allocate(12)
-                        .putFloat(x).putFloat(y).putFloat(z)
-                        .array()
-                    realtimeRight.text = bytes.take(8).joinToString("") { "%02X".format(it) }
+                    val buf = ByteBuffer.allocate(12)
+                    buf.putInt(dx).putInt(dy).putInt(dz)
+                    realtimeRight.text = buf.array().take(8).joinToString("") { "%02X".format(it) }
                 } else {
                     val ops = charArrayOf('+', '-', '*', '/')
                     realtimeRight.text = (1..16).map { ops.random() }.joinToString("")
