@@ -8,7 +8,7 @@
 2. **阈值过滤** — 丢弃 `abs(dx)+abs(dy)+abs(dz) < threshold` 的静止/微抖数据
 3. **量化编码** — `(value × 1000).roundToInt()` 转为 Int (32-bit)，消除浮点差异
 4. **熵池累积** — 12 字节/样本（3 轴 × 4 字节 Int），直接追加原始字节
-5. **熵质量评估** — Shannon 熵 + 位平衡度 + 可预测性测试（RLE 压缩比），综合评分达标后停止
+5. **熵质量评估** — Shannon 熵 + 位平衡度 + 可预测性测试（RLE 压缩比 + 自相关检测），综合评分达标后停止
 6. **HKDF 提取** — 遵循 NIST SP 800-56C，collectedBytes 作为 IKM，SecureRandom(32B) 作为 Salt，输出 256-bit
 
 ## 可配置参数

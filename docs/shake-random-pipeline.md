@@ -72,16 +72,18 @@ if (|dx| + |dy| + |dz|) < shakeThreshold → 丢弃
 - 统计每个 bit 位上 1 的比例，理想值 50%
 - `balanceScore = 1.0 - 2.0 × |bitBalance - 0.5|`
 
-### 4.3 可预测性测试 (权重 30%)
-- 环形缓冲区存储最近 256 字节原始数据
-- 对缓冲区做 RLE（游程编码）压缩，计算压缩比
-- 压缩比 ≈ 1.0 → 高度随机 → 评分 1.0
-- 压缩比 >> 1.0 → 有规律（周期性摇晃）→ 评分趋近 0
+### 4.3 可预测性测试 (权重 60%)
+- **RLE 压缩比**: 检测完全相同的连续字节重复
+- **自相关检测**: 扫描 lag ∈ [2, N/4]，计算归一化自相关系数 r(k)
+  - r(k) ≈ 1.0 → 存在周期性重复倾向（如匀速来回摇晃）
+  - r(k) ≈ 0.0 → 无周期性
+  - 比较信号的**变化趋势**而非绝对值，即使每次摇晃数值不同也能检测
+- `predictabilityScore = min(RLE分数, 1-maxAutocorrelation)`
 - 目的：避免匀速来回摇晃等周期性运动提前触发停止
 
 ### 4.4 综合评分
 ```
-entropyScore = shannonRatio × 50 + balanceScore × 20 + predictabilityScore × 30
+entropyScore = shannonRatio × 20 + balanceScore × 20 + predictabilityScore × 60
 ```
 
 ### 4.5 最小采样数安全下限

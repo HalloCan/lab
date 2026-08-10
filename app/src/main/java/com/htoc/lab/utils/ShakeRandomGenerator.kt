@@ -19,13 +19,13 @@ import kotlin.math.roundToInt
  *
  * 2. 变化量阈值过滤 —— 丢弃静止/微抖的低熵数据。
  *
- * 3. 量化为 Int (32-bit) 编码 —— 允许高位全 0/FF，
- *    因为最终经过 HKDF 提取，输入空间基数才是抵抗暴力破解的核心。
+ * 3. 量化为 Short (16-bit) 存储 —— 取每个 Int 的低 2 字节，
+ *    高位字节是符号扩展（几乎恒定 0x00/0xFF），携带的熵可忽略。
+ *    评估与存储使用同一份数据，保持一致性。
  *
  * 4. 基于熵池复杂度停止 —— Shannon 熵 + 位平衡度 + 可预测性测试综合评估。
  *
- * 5. HKDF-HMAC-SHA512 —— 遵循 NIST SP 800-56C 提取器规范，
- *    collectedBytes 作为 IKM，SecureRandom 生成的系统熵作为 Salt。
+ * 5. HKDF-HMAC-SHA512 —— 遵循 NIST SP 800-56C 提取器规范。
  */
 class ShakeRandomGenerator(
     context: Context,
@@ -103,7 +103,7 @@ class ShakeRandomGenerator(
 
         val delta = abs(dx) + abs(dy) + abs(dz)
 
-        // 量化为 Int (32-bit)，不截断
+        // 量化为 Int，用于 UI 显示和阈值判断
         val qdx = (dx * 1000).roundToInt()
         val qdy = (dy * 1000).roundToInt()
         val qdz = (dz * 1000).roundToInt()
@@ -112,15 +112,21 @@ class ShakeRandomGenerator(
 
         if (delta < shakeThreshold) return
 
-        // 每轴 4 字节 Int，共 12 字节
-        val buf = ByteBuffer.allocate(12)
-        buf.putInt(qdx).putInt(qdy).putInt(qdz)
+        // 存储低 2 字节（Short），与熵评估器使用同一份数据
+        // .toShort() 自然截取低 16 位，高位符号扩展被丢弃
+        val sdx = qdx.toShort()
+        val sdy = qdy.toShort()
+        val sdz = qdz.toShort()
+
+        val buf = ByteBuffer.allocate(6)
+        buf.putShort(sdx).putShort(sdy).putShort(sdz)
         val data = buf.array()
         for (b in data) {
             collectedBytes.add(b)
         }
 
-        estimator.feed(qdx, qdy, qdz)
+        // 评估器与存储使用同一份 Short 数据
+        estimator.feed(sdx, sdy, sdz)
         onProgress(estimator.entropyScore)
 
         if (estimator.isReady && estimator.entropyScore >= qualityThreshold) {
@@ -140,10 +146,6 @@ class ShakeRandomGenerator(
         isComplete = true
         sensorManager.unregisterListener(this)
 
-        // HKDF-HMAC-SHA512: 符合 NIST SP 800-56C 提取器规范
-        // salt: SecureRandom 生成 32 字节系统熵（每次独立，不存储）
-        // ikm:  熵池原始字节
-        // info: 上下文绑定，防止跨用途密钥复用
         val salt = ByteArray(32).also { SecureRandom().nextBytes(it) }
         val ikm = collectedBytes.toByteArray()
         val info = "ShakeRandomGenerator".toByteArray()
