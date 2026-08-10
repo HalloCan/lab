@@ -9,7 +9,13 @@ app/src/main/java/com/htoc/lab/
 ├── MainActivity.kt       # 主 Activity，承载 NavHostFragment
 ├── HomeFragment.kt       # 主页，卡片网格展示所有功能入口
 ├── AboutFragment.kt      # 说明页
-└── DemoFragment.kt       # 功能示范模板页
+├── DemoFragment.kt       # 功能示范模板页
+├── WiggleFragment.kt     # 晃晃我 — 摇晃生成随机数
+└── utils/
+    └── ShakeRandomGenerator.kt  # 摇晃随机数生成器（可复用）
+
+docs/
+└── shake-random-generator.md    # ShakeRandomGenerator 使用说明
 ```
 
 ## 技术栈
@@ -130,6 +136,18 @@ FeatureItem(
 <string name="card_settings_title">设置</string>
 <string name="card_settings_desc">应用设置和配置选项</string>
 ```
+
+---
+
+## 可复用工具
+
+每个功能的核心逻辑抽到 `utils/` 包，方便跨页面复用。配套说明文档放在 `docs/` 目录。
+
+| 工具类 | 说明 | 文档 |
+|--------|------|------|
+| `ShakeRandomGenerator` | 摇晃传感器随机数生成器 | `docs/shake-random-generator.md` |
+
+新增功能时，如果逻辑可复用，按同样方式抽到 `utils/` 并在 `docs/` 写一份说明。
 
 ---
 
