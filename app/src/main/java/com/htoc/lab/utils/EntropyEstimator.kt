@@ -84,7 +84,7 @@ class EntropyEstimator(
             val shannonRatio = (shannonEntropy / 8.0).coerceIn(0.0, 1.0)
             val balanceScore = (1.0 - 2.0 * abs(bitBalance - 0.5)).coerceIn(0.0, 1.0)
             val predictScore = predictabilityScore
-            return (shannonRatio * 30 + balanceScore * 20 + predictScore * 50)
+            return (shannonRatio * 30 + balanceScore * 30 + predictScore * 40)
                 .toInt().coerceIn(0, 100)
         }
 

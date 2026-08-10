@@ -15,6 +15,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.slider.Slider
 import com.google.android.material.snackbar.Snackbar
+import com.htoc.lab.utils.EmojiMapper
 import com.htoc.lab.utils.ShakeRandomGenerator
 import java.nio.ByteBuffer
 
@@ -26,6 +27,7 @@ class WiggleFragment : Fragment() {
     private lateinit var realtimeRight: TextView
     private lateinit var resultTitle: TextView
     private lateinit var resultText: TextView
+    private lateinit var emojiResult: TextView
     private lateinit var checkBox: CheckBox
     private lateinit var btnStart: MaterialButton
     private lateinit var btnReset: MaterialButton
@@ -49,6 +51,7 @@ class WiggleFragment : Fragment() {
         realtimeRight = view.findViewById(R.id.text_view_right)
         resultTitle = view.findViewById(R.id.result_title)
         resultText = view.findViewById(R.id.edit_result)
+        emojiResult = view.findViewById(R.id.emoji_result)
         checkBox = view.findViewById(R.id.check_box)
         btnStart = view.findViewById(R.id.btn_start)
         btnReset = view.findViewById(R.id.btn_reset)
@@ -64,6 +67,14 @@ class WiggleFragment : Fragment() {
             if (text.isNullOrBlank()) return@setOnClickListener
             val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             clipboard.setPrimaryClip(ClipData.newPlainText("random_hex", text))
+            Snackbar.make(view, getString(R.string.wiggle_copied), Snackbar.LENGTH_SHORT).show()
+        }
+
+        emojiResult.setOnClickListener {
+            val text = emojiResult.text
+            if (text.isNullOrBlank()) return@setOnClickListener
+            val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipboard.setPrimaryClip(ClipData.newPlainText("random_emoji", text))
             Snackbar.make(view, getString(R.string.wiggle_copied), Snackbar.LENGTH_SHORT).show()
         }
 
@@ -113,8 +124,10 @@ class WiggleFragment : Fragment() {
             },
             onComplete = { hex ->
                 resultText.text = hex
+                emojiResult.text = EmojiMapper.mapFromHex(hex)
                 resultTitle.visibility = View.VISIBLE
                 resultText.visibility = View.VISIBLE
+                emojiResult.visibility = View.VISIBLE
                 progressBar.setProgressCompat(100, true)
             },
             onSensorData = { dx, dy, dz, _, _, _ ->
@@ -147,6 +160,7 @@ class WiggleFragment : Fragment() {
         realtimeRight.setText(" ")
         resultTitle.visibility = View.GONE
         resultText.visibility = View.GONE
+        emojiResult.visibility = View.GONE
         sliderThreshold.isEnabled = true
         sliderQuality.isEnabled = true
         btnStart.isEnabled = true

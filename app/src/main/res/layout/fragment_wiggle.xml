@@ -192,6 +192,16 @@
                         android:textColor="?attr/colorPrimary"
                         android:visibility="gone" />
 
+                    <TextView
+                        android:id="@+id/emoji_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center"
+                        android:lineSpacingMultiplier="1.2"
+                        android:textAppearance="?attr/textAppearanceHeadlineMedium"
+                        android:visibility="gone" />
+
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
