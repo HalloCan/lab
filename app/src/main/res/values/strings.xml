@@ -61,4 +61,32 @@
     <string name="converter_emoji_hint">输入 Emoji</string>
     <string name="converter_hex_preview">Hex 输出</string>
     <string name="converter_emoji_preview">Emoji 输出</string>
+
+    <!-- NFC -->
+    <string name="nfc_title">NFC 数据交换</string>
+    <string name="nfc_description">输入内容后，一台手机点「发送」，另一台点「接收」，两台手机碰一碰即可交换数据。</string>
+    <string name="nfc_input_hint">输入要交换的内容</string>
+    <string name="nfc_send_button">发送数据</string>
+    <string name="nfc_receive_button">接收数据</string>
+    <string name="nfc_empty_message">请输入要发送的内容</string>
+    <string name="nfc_ready_to_receive">等待 NFC 连接…</string>
+    <string name="nfc_received_snackbar">收到数据！</string>
+    <string name="nfc_transfer_complete">传输完成</string>
+    <string name="nfc_status_no_nfc_title">设备不支持 NFC</string>
+    <string name="nfc_status_no_nfc_text">此设备没有 NFC 硬件，无法使用此功能。</string>
+    <string name="nfc_status_sending_title">📡 发送模式</string>
+    <string name="nfc_status_sending_hint">请将手机靠近接收端的手机</string>
+    <string name="nfc_status_receiving_title">📡 接收模式</string>
+    <string name="nfc_status_receiving_text">等待发送端靠近…</string>
+    <string name="nfc_status_receiving_hint">将手机靠近发送端的手机</string>
+    <string name="nfc_status_received_title">✅ 收到数据</string>
+    <string name="nfc_status_received_hint">来自另一台手机的消息</string>
+    <string name="nfc_status_sent_title">✅ 已发送</string>
+    <string name="nfc_status_sent_hint">数据已发送到对方手机</string>
+    <string name="nfc_status_exchange_title">🔄 数据交换完成</string>
+    <string name="nfc_status_exchange_hint">已收到对方的数据</string>
+    <string name="nfc_status_error_title">❌ 传输失败</string>
+
+    <string name="card_nfc_title">NFC 交换</string>
+    <string name="card_nfc_desc">两台手机碰一碰交换数据</string>
 </resources>

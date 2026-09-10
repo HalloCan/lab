@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
                 "demo" -> findNavController().navigate(R.id.action_home_to_demo)
                 "wiggle" -> findNavController().navigate(R.id.action_home_to_wiggle)
                 "converter" -> findNavController().navigate(R.id.action_home_to_converter)
+                "nfc" -> findNavController().navigate(R.id.action_home_to_nfc)
             }
         }
     }
@@ -61,6 +62,12 @@ class HomeFragment : Fragment() {
             R.drawable.ic_swap,
             getString(R.string.card_converter_title),
             getString(R.string.card_converter_desc)
+        ),
+        FeatureItem(
+            "nfc",
+            R.drawable.ic_nfc,
+            getString(R.string.card_nfc_title),
+            getString(R.string.card_nfc_desc)
         )
     )
 }

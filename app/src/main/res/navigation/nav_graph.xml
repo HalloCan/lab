@@ -42,6 +42,14 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_home_to_nfc"
+            app:destination="@id/nfcFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -67,5 +75,11 @@
         android:name="com.htoc.lab.ConverterFragment"
         android:label="@string/converter_title"
         tools:layout="@layout/fragment_converter" />
+
+    <fragment
+        android:id="@+id/nfcFragment"
+        android:name="com.htoc.lab.NfcFragment"
+        android:label="@string/nfc_title"
+        tools:layout="@layout/fragment_nfc" />
 
 </navigation>
